@@ -1,8 +1,11 @@
 import Todoapp from "./ToDoApp/Todo"
 
-export const App = () => {
+
+function App(){
   return (<>
   <Todoapp />
   </>)
 }
 
+
+export default App;
