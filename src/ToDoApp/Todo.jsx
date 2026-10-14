@@ -16,7 +16,9 @@ function Todoapp() {
         if (task.trim() === "") return;
         setTodos([
             ...todos,
-            { id: Date.now(), todo: task, completed: false }
+            {
+                id: Date.now(), todo: task, completed: false, createdAt: new Date().toLocaleTimeString()
+            }
         ])
 
     }
@@ -24,7 +26,7 @@ function Todoapp() {
     function handleToggle(id) {
         setTodos(todos.map((each) => (
             each.id === id ?
-             { ...each, completed: !each.completed } : each
+                { ...each, completed: !each.completed } : each
         )))
     }
 
@@ -36,16 +38,17 @@ function Todoapp() {
         <h1 >Create Your To-Do-List...</h1>
         <form onSubmit={handleSubmit}>
             <input type="text" value={task} placeholder="Enter your task" onChange={(e) => (setTask(e.target.value))} />
-            <button>Add <IoAddOutline /></button>
+            <button>Add <span> <IoAddOutline /></span></button>
         </form>
         <div className="tasks">
             {todos.map((each) => (
                 <div className="task" key={each.id}>
                     <p style={{ textDecoration: each.completed ? "line-through" : "none" }}>
                         {each.todo}
+                        <small>Created: {each.createdAt}</small>
                     </p>
 
-                    <input type="checkbox" checked={each.completed} onChange={()=>(handleToggle(each.id))} />
+                    <input type="checkbox" checked={each.completed} onChange={() => (handleToggle(each.id))} />
 
 
                     <button onClick={() => handleDelete(each.id)}>Delete <span><MdDelete /></span></button></div>
